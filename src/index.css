@@ -8,49 +8,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 97%;
+    --foreground: 0 0% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 13%;
 
-    --primary: 142 76% 36%;
+    --primary: 349 72% 49%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 48 100% 70%;
+    --secondary-foreground: 0 0% 13%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 201 96% 32%;
+    --accent: 198 82% 38%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 142 76% 36%;
+    --border: 0 0% 89%;
+    --input: 0 0% 89%;
+    --ring: 349 72% 49%;
 
     /* Community design tokens */
-    --community-green: 142 76% 36%;
-    --community-green-light: 142 76% 90%;
-    --community-blue: 201 96% 32%;
-    --community-blue-light: 201 96% 90%;
-    --community-warm: 45 93% 95%;
+    --community-green: 349 72% 49%;
+    --community-green-light: 349 72% 90%;
+    --community-blue: 198 82% 38%;
+    --community-blue-light: 198 82% 90%;
+    --community-warm: 48 100% 95%;
+    --community-charcoal: 0 0% 18%;
+    --community-hover: 15 89% 58%;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(142 76% 36%), hsl(201 96% 32%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-hero: linear-gradient(135deg, hsl(349 72% 49%), hsl(198 82% 38%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(0 0% 97%));
     
     /* Shadows */
-    --shadow-soft: 0 4px 6px -1px hsl(220 13% 91% / 0.4);
-    --shadow-medium: 0 10px 15px -3px hsl(220 13% 91% / 0.3);
-    --shadow-strong: 0 20px 25px -5px hsl(220 13% 91% / 0.4);
+    --shadow-soft: 0 4px 6px -1px hsl(0 0% 80% / 0.4);
+    --shadow-medium: 0 10px 15px -3px hsl(0 0% 80% / 0.3);
+    --shadow-strong: 0 20px 25px -5px hsl(0 0% 80% / 0.4);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
