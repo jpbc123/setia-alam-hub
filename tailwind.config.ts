@@ -67,9 +67,7 @@ export default {
 					'green-light': 'hsl(var(--community-green-light))',
 					blue: 'hsl(var(--community-blue))',
 					'blue-light': 'hsl(var(--community-blue-light))',
-					warm: 'hsl(var(--community-warm))',
-					charcoal: 'hsl(var(--community-charcoal))',
-					hover: 'hsl(var(--community-hover))'
+					warm: 'hsl(var(--community-warm))'
 				}
 			},
 			backgroundImage: {
