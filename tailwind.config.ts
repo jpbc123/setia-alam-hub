@@ -62,12 +62,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				community: {
-					green: 'hsl(var(--community-green))',
-					'green-light': 'hsl(var(--community-green-light))',
-					blue: 'hsl(var(--community-blue))',
-					'blue-light': 'hsl(var(--community-blue-light))',
-					warm: 'hsl(var(--community-warm))'
+				malaysia: {
+					red: 'hsl(var(--malaysia-red))',
+					yellow: 'hsl(var(--malaysia-yellow))',
+					blue: 'hsl(var(--malaysia-blue))',
+					orange: 'hsl(var(--malaysia-orange))',
+					dark: 'hsl(var(--malaysia-dark))',
+					light: 'hsl(var(--malaysia-light))'
 				}
 			},
 			backgroundImage: {

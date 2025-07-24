@@ -16,7 +16,7 @@ const HeroSection = () => {
       <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
           Welcome to{" "}
-          <span className="bg-gradient-to-r from-community-green to-community-blue bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-malaysia-yellow to-malaysia-red bg-clip-text text-transparent">
             My Setia Alam
           </span>
         </h1>
@@ -45,19 +45,19 @@ const HeroSection = () => {
         {/* Quick Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto">
           <div className="text-center">
-            <div className="text-3xl font-bold text-community-green">500+</div>
+            <div className="text-3xl font-bold text-malaysia-red">500+</div>
             <div className="text-sm text-gray-300">Local Businesses</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-community-blue">10K+</div>
+            <div className="text-3xl font-bold text-malaysia-blue">10K+</div>
             <div className="text-sm text-gray-300">Community Members</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-community-green">50+</div>
+            <div className="text-3xl font-bold text-malaysia-red">50+</div>
             <div className="text-sm text-gray-300">Weekly Events</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-community-blue">24/7</div>
+            <div className="text-3xl font-bold text-malaysia-blue">24/7</div>
             <div className="text-sm text-gray-300">Community Support</div>
           </div>
         </div>

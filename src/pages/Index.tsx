@@ -1,17 +1,35 @@
-import Header from "@/components/Header";
+import TopNavigation from "@/components/TopNavigation";
 import HeroSection from "@/components/HeroSection";
-import FeaturedBusinesses from "@/components/FeaturedBusinesses";
-import UpcomingEvents from "@/components/UpcomingEvents";
-import Footer from "@/components/Footer";
+import BottomMenuBanner from "@/components/BottomMenuBanner";
+import TrendingCarousel from "@/components/TrendingCarousel";
+import RightSidebar from "@/components/RightSidebar";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <div className="min-h-screen bg-malaysia-light">
+      {/* Top Navigation */}
+      <TopNavigation />
+      
+      {/* Hero Section */}
       <HeroSection />
-      <FeaturedBusinesses />
-      <UpcomingEvents />
-      <Footer />
+      
+      {/* Main Content Area */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - Trending Carousel (wider) */}
+          <div className="lg:col-span-2">
+            <TrendingCarousel />
+          </div>
+          
+          {/* Right Column - Widgets (narrow) */}
+          <div className="lg:col-span-1">
+            <RightSidebar />
+          </div>
+        </div>
+      </div>
+      
+      {/* Bottom Menu Banner */}
+      <BottomMenuBanner />
     </div>
   );
 };
