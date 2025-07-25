@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const TopNavigation = () => {
   return (
@@ -7,9 +8,11 @@ const TopNavigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold text-malaysia-yellow">
-              My Setia Alam
-            </h1>
+            <Link to="/">
+              <h1 className="text-xl font-bold text-malaysia-yellow">
+                Setia Alam Hub
+              </h1>
+            </Link>
           </div>
 
           {/* Auth Buttons */}

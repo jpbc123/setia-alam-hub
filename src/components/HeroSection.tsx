@@ -15,16 +15,16 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-          Welcome to{" "}
-          <span className="bg-gradient-to-r from-malaysia-yellow to-malaysia-red bg-clip-text text-transparent">
-            My Setia Alam
+          <span>Welcome to</span>
+          <span className="block bg-gradient-to-r from-malaysia-yellow to-malaysia-red bg-clip-text text-transparent">
+            Setia Alam Hub
           </span>
         </h1>
-        
+
         <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed">
           Your trusted source for everything in Setia Alam
         </p>
-        
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button 
             size="lg" 
@@ -32,7 +32,7 @@ const HeroSection = () => {
           >
             Explore Now
           </Button>
-          
+
           <Button 
             size="lg" 
             variant="outline" 

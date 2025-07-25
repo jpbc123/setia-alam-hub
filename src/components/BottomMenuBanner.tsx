@@ -1,16 +1,10 @@
 import { useState, useEffect } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 
 interface MenuItem {
   icon: string;
   label: string;
   items: string[];
+  href?: string;
 }
 
 const menuItems: MenuItem[] = [
@@ -22,8 +16,8 @@ const menuItems: MenuItem[] = [
       "Crime Watch 🕵️‍♂️",
       "Trending in Setia Alam",
       "Weather & Flooding Alerts 🌦️",
-      "Traffic Jam Alerts 🚗"
-    ]
+      "Traffic Jam Alerts 🚗",
+    ],
   },
   {
     icon: "🛍️",
@@ -32,8 +26,8 @@ const menuItems: MenuItem[] = [
       "Mall & Store Promotions",
       "New Restaurant Launches 🍽️",
       "Popular Sport Destinations 🏸",
-      "Pet Grooming Salons & Hotels 🐾"
-    ]
+      "Pet Grooming Salons & Hotels 🐾",
+    ],
   },
   {
     icon: "💬",
@@ -41,8 +35,8 @@ const menuItems: MenuItem[] = [
     items: [
       "Community Chat / Brainstorm",
       "Submit News or Tips",
-      "Suggest a Business or Event"
-    ]
+      "Suggest a Business or Event",
+    ],
   },
   {
     icon: "📢",
@@ -51,18 +45,20 @@ const menuItems: MenuItem[] = [
       "Promote Your Business",
       "Feature a Restaurant",
       "Sponsored Listings",
-      "Classifieds"
-    ]
+      "Classifieds",
+    ],
   },
   {
-    icon: "💖",
-    label: "Buy Me a Coffee",
-    items: []
-  }
+    icon: "🛈",
+    label: "About",
+    href: "/about",
+    items: [],
+  },
 ];
 
 const BottomMenuBanner = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeMenuIndex, setActiveMenuIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,59 +77,59 @@ const BottomMenuBanner = () => {
     >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-around items-center h-full">
-          {menuItems.map((menu, index) => (
-            <div key={index} className="flex-1">
-              {menu.items.length > 0 ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="flex flex-col items-center w-full h-full text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2"
+          {menuItems.map((menu, index) => {
+            const isActive = activeMenuIndex === index;
+
+            return (
+              <div
+                key={index}
+                className="relative flex-1"
+                onMouseEnter={() => setActiveMenuIndex(index)}
+                onMouseLeave={() => setActiveMenuIndex(null)}
+              >
+                {menu.href ? (
+                  <a
+                    href={menu.href}
+                    className="flex flex-col items-center w-full h-full text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2"
+                  >
+                    <span className="text-2xl mb-1">{menu.icon}</span>
+                    <span
+                      className={`text-xs text-center transition-all duration-300 ${
+                        isScrolled ? "menu-label-hidden" : "menu-label-visible"
+                      }`}
                     >
+                      {menu.label}
+                    </span>
+                  </a>
+                ) : (
+                  <>
+                    <div className="flex flex-col items-center w-full h-full text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2 cursor-pointer">
                       <span className="text-2xl mb-1">{menu.icon}</span>
                       <span
                         className={`text-xs text-center transition-all duration-300 ${
-                          isScrolled
-                            ? "menu-label-hidden"
-                            : "menu-label-visible"
+                          isScrolled ? "menu-label-hidden" : "menu-label-visible"
                         }`}
                       >
                         {menu.label}
                       </span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    side="top"
-                    align="center"
-                    className="dropdown-up bg-white shadow-strong border border-gray-200 mb-2"
-                  >
-                    {menu.items.map((item, itemIndex) => (
-                      <DropdownMenuItem
-                        key={itemIndex}
-                        className="cursor-pointer hover:bg-malaysia-light/50 px-4 py-2"
-                      >
-                        {item}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <Button
-                  variant="ghost"
-                  className="flex flex-col items-center w-full h-full text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2"
-                >
-                  <span className="text-2xl mb-1">{menu.icon}</span>
-                  <span
-                    className={`text-xs text-center transition-all duration-300 ${
-                      isScrolled ? "menu-label-hidden" : "menu-label-visible"
-                    }`}
-                  >
-                    {menu.label}
-                  </span>
-                </Button>
-              )}
-            </div>
-          ))}
+                    </div>
+                    {menu.items.length > 0 && isActive && (
+                      <div className="absolute bottom-full -mb-1 left-1/2 -translate-x-1/2 flex flex-col bg-white border border-gray-200 shadow-lg rounded-md z-50 w-max">
+                        {menu.items.map((item, itemIndex) => (
+                          <div
+                            key={itemIndex}
+                            className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap transition"
+                          >
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
