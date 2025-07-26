@@ -23,12 +23,12 @@ const AtmLocator = () => {
   }, []);
 
   // Load ATM data from static JSON
-  useEffect(() => {
-    fetch("/data/atm_locations.json")
-      .then((res) => res.json())
-      .then((data: AtmData) => setAtmData(data))
-      .catch((err) => console.error("Failed to load ATM data:", err));
-  }, []);
+	useEffect(() => {
+	fetch(`${import.meta.env.BASE_URL}data/atm_locations.json`)
+		.then((res) => res.json())
+		.then((data: AtmData) => setAtmData(data))
+		.catch((err) => console.error("Failed to load ATM data:", err));
+	}, []);
 
   const banks = Object.keys(atmData);
 
