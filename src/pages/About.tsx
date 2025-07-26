@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import Navbar from "@/components/TopNavigation";
-import FooterNav from "@/components/BottomMenuBanner";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@supabase/supabase-js";
+import flyingMail from "@/assets/mail.png";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL!,
@@ -66,8 +65,6 @@ export default function About() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
-
       {/* Top Gradient Section */}
       <div className="bg-gradient-to-b from-yellow-300 via-yellow-100 to-transparent text-black">
         <div className="px-6 py-16 max-w-4xl mx-auto">
@@ -190,7 +187,7 @@ export default function About() {
                 <div className="flex items-center gap-3 text-green-600 pt-2">
                   <span>Thanks! Our team will review your message and get back to you as soon as we can.</span>
                   <img
-                    src="/src/assets/mail.png"
+                    src={flyingMail}
                     alt="Flying mail icon"
                     className="w-7 h-7 sm:w-8 sm:h-8 -rotate-12"
                   />
@@ -204,8 +201,6 @@ export default function About() {
           </div>
         </div>
       </main>
-
-      <FooterNav />
     </div>
   );
 }

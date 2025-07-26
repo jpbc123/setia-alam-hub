@@ -9,40 +9,42 @@ interface TrendingItem {
   category: string;
 }
 
+const BASE_IMAGE_PATH = `${import.meta.env.BASE_URL}assets/placeholder.svg`;
+
 const trendingItems: TrendingItem[] = [
   {
     id: 1,
     title: "New Shopping Mall Opens in Setia Alam",
     description: "Grand opening of Setia City Mall with over 200 retail stores...",
-    image: "/placeholder.svg",
+    image: BASE_IMAGE_PATH,
     category: "Shopping"
   },
   {
     id: 2,
     title: "Local Food Festival This Weekend",
     description: "Join us for the biggest food festival featuring local delicacies...",
-    image: "/placeholder.svg",
+    image: BASE_IMAGE_PATH,
     category: "Events"
   },
   {
     id: 3,
     title: "Traffic Update: New Highway Access",
     description: "New highway access point reduces travel time to KL city center...",
-    image: "/placeholder.svg",
+    image: BASE_IMAGE_PATH,
     category: "Traffic"
   },
   {
     id: 4,
     title: "Community Park Renovation Complete",
     description: "The central park now features new playground and jogging tracks...",
-    image: "/placeholder.svg",
+    image: BASE_IMAGE_PATH,
     category: "Community"
   },
   {
     id: 5,
     title: "Local Business Spotlight: Ahmad's Bakery",
     description: "Traditional Malaysian pastries made with love for 20 years...",
-    image: "/placeholder.svg",
+    image: BASE_IMAGE_PATH,
     category: "Business"
   }
 ];
@@ -52,7 +54,7 @@ const TrendingCarousel = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
+      setCurrentIndex((prevIndex) =>
         prevIndex === trendingItems.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000); // Auto-scroll every 3 seconds
@@ -65,7 +67,7 @@ const TrendingCarousel = () => {
       <h2 className="text-2xl font-bold text-malaysia-dark mb-4">
         🔥 Trending in Setia Alam
       </h2>
-      
+
       <div className="relative overflow-hidden rounded-lg shadow-medium">
         <div
           className="flex transition-transform duration-500 ease-in-out"

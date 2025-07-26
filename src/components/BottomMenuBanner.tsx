@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // ✅ Import Link
 
 interface MenuItem {
   icon: string;
@@ -88,8 +89,8 @@ const BottomMenuBanner = () => {
                 onMouseLeave={() => setActiveMenuIndex(null)}
               >
                 {menu.href ? (
-                  <a
-                    href={menu.href}
+                  <Link
+                    to={menu.href}
                     className="flex flex-col items-center w-full h-full text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2"
                   >
                     <span className="text-2xl mb-1">{menu.icon}</span>
@@ -100,7 +101,7 @@ const BottomMenuBanner = () => {
                     >
                       {menu.label}
                     </span>
-                  </a>
+                  </Link>
                 ) : (
                   <>
                     <div className="flex flex-col items-center w-full h-full text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2 cursor-pointer">

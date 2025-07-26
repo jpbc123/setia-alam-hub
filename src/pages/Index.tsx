@@ -1,16 +1,12 @@
-import TopNavigation from "@/components/TopNavigation";
 import HeroSection from "@/components/HeroSection";
 import BottomMenuBanner from "@/components/BottomMenuBanner";
 import TrendingCarousel from "@/components/TrendingCarousel";
-import FeaturedBusinesses from "@/components/FeaturedBusinesses";
+import Explore from "@/components/Explore";
 import RightSidebar from "@/components/RightSidebar";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-malaysia-light">
-      {/* Top Navigation */}
-      <TopNavigation />
-
       {/* Hero Section */}
       <HeroSection />
 
@@ -20,7 +16,7 @@ const Index = () => {
           {/* Left Column: Trending + Featured */}
           <div className="lg:col-span-2 space-y-8">
             <TrendingCarousel />
-            <FeaturedBusinesses />
+            <Explore />
           </div>
 
           {/* Right Column: Sidebar */}

@@ -1,0 +1,42 @@
+{
+  "Maybank": [
+    {
+      "name": "Setia City Mall",
+      "address": "LG Floor, Setia City Mall, Persiaran Setia Dagang, 40170",
+      "mapUrl": "https://www.google.com/maps?q=Setia+City+Mall+Maybank"
+    },
+    {
+      "name": "Jalan Setia Dagang",
+      "address": "No. 12, Jalan Setia Dagang AH U13/AH, 40170 Shah Alam",
+      "mapUrl": "https://www.google.com/maps?q=Jalan+Setia+Dagang+Maybank"
+    },
+    {
+      "name": "Eco Ardence",
+      "address": "GF, Ardence Labs, Eco Ardence, Setia Alam 40170",
+      "mapUrl": "https://www.google.com/maps?q=Eco+Ardence+Maybank"
+    }
+  ],
+  "CIMB": [
+    {
+      "name": "Setia Avenue",
+      "address": "C-3A-1, Setia Avenue, Persiaran Setia Prima, 40170",
+      "mapUrl": "https://www.google.com/maps?q=CIMB+Setia+Avenue"
+    },
+    {
+      "name": "Tesco Setia Alam",
+      "address": "Lot G30, Tesco Setia Alam, Persiaran Setia Alam, 40170",
+      "mapUrl": "https://www.google.com/maps?q=CIMB+Tesco+Setia+Alam"
+    },
+    {
+      "name": "Jalan Setia Perdana",
+      "address": "No. 5, Jalan Setia Perdana U13/25H, 40170 Shah Alam",
+      "mapUrl": "https://www.google.com/maps?q=CIMB+Jalan+Setia+Perdana"
+    }
+  ],
+  "Public Bank": [],
+  "RHB": [],
+  "Hong Leong Bank": [],
+  "Ambank": [],
+  "Bank Islam": [],
+  "HSBC": []
+}
