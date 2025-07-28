@@ -22,12 +22,15 @@ const GroupChatPage = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [groupTitle, setGroupTitle] = useState("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
   const isPaidUser = session?.user?.user_metadata?.is_paid;
 
+  // Scroll to bottom when messages update
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Fetch messages
   const fetchMessages = async () => {
     const { data, error } = await supabase
       .from("chat_messages")
@@ -40,6 +43,7 @@ const GroupChatPage = () => {
     }
   };
 
+  // Fetch group title
   const fetchGroupTitle = async () => {
     const { data, error } = await supabase
       .from("chat_groups")
@@ -52,6 +56,7 @@ const GroupChatPage = () => {
     }
   };
 
+  // Send a message
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
 
@@ -63,38 +68,31 @@ const GroupChatPage = () => {
     });
 
     if (!error) {
-      setInputMessage(""); // Message will show via realtime
+      setInputMessage("");
+      // Let the realtime subscription handle the UI update
     } else {
       console.error("Failed to send message:", error.message);
     }
   };
 
+  // Listen to realtime updates
   useEffect(() => {
     fetchMessages();
     fetchGroupTitle();
 
-    const channel = supabase
-      .channel(`realtime:chat_messages:group_id=eq.${groupId}`)
+    const subscription = supabase
+      .channel("chat-room")
       .on(
         "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "chat_messages",
-          filter: `group_id=eq.${groupId}`,
-        },
+        { event: "INSERT", schema: "public", table: "chat_messages", filter: `group_id=eq.${groupId}` },
         (payload) => {
-          const newMsg = payload.new as Message;
-          setMessages((prev) => {
-            const exists = prev.some((msg) => msg.id === newMsg.id);
-            return exists ? prev : [...prev, newMsg];
-          });
+          setMessages((prev) => [...prev, payload.new as Message]);
         }
       )
       .subscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      supabase.removeChannel(subscription);
     };
   }, [groupId]);
 

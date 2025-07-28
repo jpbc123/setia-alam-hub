@@ -1,12 +1,11 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
 import CreateGroupModal from "@/components/chat/CreateGroupModal";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface ChatGroup {
   id: string;
@@ -19,10 +18,10 @@ const CommunityChat = () => {
   const { user, session } = useAuth();
   const [chatGroups, setChatGroups] = useState<ChatGroup[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const isPaidUser = session?.user?.user_metadata?.is_paid;
 
-  // Reusable fetchGroups function
   const fetchGroups = async () => {
     setLoading(true);
     const { data, error } = await supabase
@@ -39,7 +38,6 @@ const CommunityChat = () => {
     setLoading(false);
   };
 
-  // Initial load
   useEffect(() => {
     fetchGroups();
   }, []);
@@ -66,13 +64,11 @@ const CommunityChat = () => {
           <Card
             key={group.id}
             className="mb-4 cursor-pointer hover:shadow-md transition"
-            onClick={() => (window.location.href = `/group-chat/${group.id}`)}
+            onClick={() => navigate(`/group-chat/${group.id}`)}
           >
             <CardHeader>
               <h2 className="text-lg font-semibold text-malaysia-dark">
-                <Link to={`/community-chat/group/${group.id}`} className="text-malaysia-dark hover:underline">
-                  {group.title}
-                </Link>
+                {group.title}
               </h2>
               <p className="text-sm text-gray-500">
                 Created by: {group.created_by} on{" "}

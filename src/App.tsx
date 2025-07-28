@@ -12,8 +12,7 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import AtmLocator from "./pages/AtmLocator";
 import Classifieds from "./pages/Classifieds";
-import CommunityChat from "./pages/CommunityChat"; 
-import GroupChat from "./pages/GroupChat";
+import CommunityChat from "./pages/CommunityChat";
 import GroupChatPage from "@/pages/GroupChatPage";
 
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -28,71 +27,14 @@ const App = () => (
       <AuthProvider>
         <Router>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Layout>
-                  <Index />
-                </Layout>
-              }
-            />
+            <Route path="/" element={<Layout><Index /></Layout>} />
             <Route path="/auth/callback" element={<AuthCallback />} />
-            <Route
-              path="/about"
-              element={
-                <Layout>
-                  <About />
-                </Layout>
-              }
-            />
-            <Route
-              path="/classifieds"
-              element={
-                <Layout>
-                  <Classifieds />
-                </Layout>
-              }
-            />
-            <Route
-              path="/atm-locator"
-              element={
-                <Layout>
-                  <AtmLocator />
-                </Layout>
-              }
-            />
-            <Route
-              path="/community-chat"
-              element={
-                <Layout>
-                  <CommunityChat />
-                </Layout>
-              }
-            />
-            <Route
-              path="/community-chat/:id"
-              element={
-                <Layout>
-                  <GroupChat />
-                </Layout>
-              }
-            />
-			<Route
-			path="/community-chat/group/:id"
-			element={
-				<Layout>
-				<GroupChatPage />
-				</Layout>
-			}
-			/>
-            <Route
-              path="*"
-              element={
-                <Layout>
-                  <NotFound />
-                </Layout>
-              }
-            />
+            <Route path="/about" element={<Layout><About /></Layout>} />
+            <Route path="/classifieds" element={<Layout><Classifieds /></Layout>} />
+            <Route path="/atm-locator" element={<Layout><AtmLocator /></Layout>} />
+            <Route path="/community-chat" element={<Layout><CommunityChat /></Layout>} />
+            <Route path="/group-chat/:id" element={<Layout><GroupChatPage /></Layout>} />
+            <Route path="*" element={<Layout><NotFound /></Layout>} />
           </Routes>
         </Router>
       </AuthProvider>
