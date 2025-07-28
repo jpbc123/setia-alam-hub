@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"; // ✅ Import Link from react-router-dom
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 const Explore = () => {
   const [showMore, setShowMore] = useState(false);
 
-  const businesses = [
+  const initialBusinesses = [
     {
       id: 1,
       name: "ATM Locator",
@@ -31,6 +30,9 @@ const Explore = () => {
       description: "Access to trusted clinics, dental care, and emergency services.",
       link: "/health-services",
     },
+  ];
+
+  const extraBusinesses = [
     {
       id: 4,
       name: "Pet Services",
@@ -55,18 +57,19 @@ const Explore = () => {
       description: "Popular pickleball courts, badminton halls, and parks for all ages.",
       link: "/sports",
     },
-  ];
-
-  const hiddenBusiness = {
+    {
       id: 7,
       name: "Fitness & Wellness",
       category: "Wellness",
       image: "🏋️‍♂️",
       description: "Explore gyms, yoga studios, and wellness centers around you.",
       link: "/fitness",
-  };
+    },
+  ];
 
-  const displayedBusinesses = showMore ? [...businesses, hiddenBusiness] : businesses;
+  const displayedBusinesses = showMore
+    ? [...initialBusinesses, ...extraBusinesses]
+    : initialBusinesses;
 
   return (
     <section className="py-16 bg-community-warm">
@@ -99,12 +102,6 @@ const Explore = () => {
                     <div className="text-2xl w-12 h-12 bg-white border rounded-full shadow flex items-center justify-center">
                       {business.image}
                     </div>
-
-                    {business.featured && (
-                      <div className="text-xs bg-gradient-hero px-3 py-1 rounded-md text-white">
-                        Featured
-                      </div>
-                    )}
                   </div>
                 </CardHeader>
 

@@ -9,7 +9,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+} from "@/components/ui/card";
+import { supabase } from "@/lib/supabaseClient";
+import { FcGoogle } from "react-icons/fc";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -18,31 +23,75 @@ interface AuthModalProps {
   onModeChange: (mode: "signin" | "signup") => void;
 }
 
-export const AuthModal = ({ isOpen, onClose, mode, onModeChange }: AuthModalProps) => {
+export const AuthModal = ({
+  isOpen,
+  onClose,
+  mode,
+  onModeChange,
+}: AuthModalProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Note: Actual authentication will require Supabase integration
-    console.log("Auth form submitted:", { email, password, mode });
-    onClose();
+    setErrorMsg("");
+
+    if (mode === "signup") {
+      if (password !== confirmPassword) {
+        setErrorMsg("Passwords do not match.");
+        return;
+      }
+
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: name },
+        },
+      });
+
+      if (error) {
+        setErrorMsg(error.message);
+      } else {
+        onClose();
+      }
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setErrorMsg(error.message);
+      } else {
+        onClose();
+      }
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+    if (error) {
+      setErrorMsg(error.message);
+    }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md z-[9999]">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold bg-gradient-hero bg-clip-text text-transparent">
             {mode === "signin" ? "Welcome Back!" : "Join My Setia Alam"}
           </DialogTitle>
           <DialogDescription className="text-center">
-            {mode === "signin" 
-              ? "Sign in to access your community features" 
-              : "Create your account to connect with your neighbors"
-            }
+            {mode === "signin"
+              ? "Sign in to access your community features"
+              : "Create your account to connect with your neighbors"}
           </DialogDescription>
         </DialogHeader>
 
@@ -105,8 +154,8 @@ export const AuthModal = ({ isOpen, onClose, mode, onModeChange }: AuthModalProp
                 </div>
               )}
 
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full bg-gradient-hero hover:opacity-90"
               >
                 {mode === "signin" ? "Sign In" : "Create Account"}
@@ -117,17 +166,27 @@ export const AuthModal = ({ isOpen, onClose, mode, onModeChange }: AuthModalProp
                   <span className="w-full border-t" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">Or</span>
+                  <span className="bg-background px-2 text-muted-foreground">
+                    Or
+                  </span>
                 </div>
               </div>
 
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full border-community-blue text-community-blue hover:bg-community-blue hover:text-accent-foreground"
-              >
-                Continue with Google
-              </Button>
+              {/* Google Sign-in Button */}
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  onClick={handleGoogleLogin}
+                  className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition"
+                  title="Continue with Google"
+                >
+                  <FcGoogle className="text-2xl" />
+                </button>
+              </div>
+
+              {errorMsg && (
+                <div className="text-red-600 text-sm text-center">{errorMsg}</div>
+              )}
             </form>
 
             <div className="mt-6 text-center text-sm">
@@ -161,3 +220,5 @@ export const AuthModal = ({ isOpen, onClose, mode, onModeChange }: AuthModalProp
     </Dialog>
   );
 };
+
+export default AuthModal;

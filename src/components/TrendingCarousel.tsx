@@ -80,7 +80,7 @@ const TrendingCarousel = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-80 object-cover"
                   />
                   <div className="absolute top-4 left-4">
                     <span className="bg-malaysia-red text-white px-3 py-1 rounded-full text-sm font-medium">

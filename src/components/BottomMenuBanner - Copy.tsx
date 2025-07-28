@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 interface MenuItem {
   icon: string;
   label: string;
-  items: string[] | { name: string; href?: string }[];
+  items: string[];
   href?: string;
 }
 
@@ -34,7 +34,7 @@ const menuItems: MenuItem[] = [
     icon: "💬",
     label: "Community",
     items: [
-      { name: "Community Chat & Discussion", href: "/community-chat" },
+      "Community Chat / Brainstorm",
       "Submit News or Tips",
       "Suggest a Business or Event",
     ],
@@ -43,9 +43,10 @@ const menuItems: MenuItem[] = [
     icon: "📢",
     label: "Advertise With Us",
     items: [
-      "Featured Businesses",
       "Promote Your Business",
-      { name: "Classifieds", href: "/classifieds" },
+      "Feature a Restaurant",
+      "Sponsored Listings",
+      "Classifieds",
     ],
   },
   {
@@ -79,7 +80,6 @@ const BottomMenuBanner = () => {
         <div className="flex justify-around items-center h-full">
           {menuItems.map((menu, index) => {
             const isActive = activeMenuIndex === index;
-            const isLastTwo = index >= menuItems.length - 2;
 
             return (
               <div
@@ -115,45 +115,15 @@ const BottomMenuBanner = () => {
                       </span>
                     </div>
                     {menu.items.length > 0 && isActive && (
-                      <div
-                        className={`absolute bottom-full -mb-1 z-50 min-w-[260px] flex flex-col bg-white border border-gray-200 shadow-lg rounded-md text-left
-                          ${
-                            isLastTwo
-                              ? "left-auto right-0 w-full sm:left-1/2 sm:-translate-x-1/2 sm:w-max"
-                              : "left-0 right-0 sm:left-1/2 sm:-translate-x-1/2 sm:w-max"
-                          }`}
-                      >
-                        {(menu.items as (string | { name: string; href?: string })[]).map(
-                          (item, itemIndex) => {
-                            if (typeof item === "string") {
-                              return (
-                                <div
-                                  key={itemIndex}
-                                  className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap truncate transition"
-                                >
-                                  {item}
-                                </div>
-                              );
-                            } else {
-                              return item.href ? (
-                                <Link
-                                  key={itemIndex}
-                                  to={item.href}
-                                  className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap truncate transition"
-                                >
-                                  {item.name}
-                                </Link>
-                              ) : (
-                                <div
-                                  key={itemIndex}
-                                  className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap truncate transition"
-                                >
-                                  {item.name}
-                                </div>
-                              );
-                            }
-                          }
-                        )}
+                      <div className="fixed bottom-[60px] left-1/2 -translate-x-1/2 min-w-[260px] bg-white border border-gray-200 shadow-lg rounded-md z-50 flex flex-col">
+                        {menu.items.map((item, itemIndex) => (
+                          <div
+                            key={itemIndex}
+                            className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap transition"
+                          >
+                            {item}
+                          </div>
+                        ))}
                       </div>
                     )}
                   </>

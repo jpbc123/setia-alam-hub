@@ -89,7 +89,7 @@ export default function About() {
           </ul>
 
           <p className="text-gray-700">
-            If you have questions about our privacy practices, please contact us via the form below.
+            If you have any questions about our privacy practices or suggestions, please contact us using the form below.
           </p>
         </div>
       </div>
