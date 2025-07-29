@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabaseClient";
 import { Input } from "@/components/ui/input";
@@ -22,6 +22,8 @@ const GroupChatPage = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [groupTitle, setGroupTitle] = useState("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
+
   const isPaidUser = session?.user?.user_metadata?.is_paid;
 
   const scrollToBottom = () => {
@@ -63,7 +65,7 @@ const GroupChatPage = () => {
     });
 
     if (!error) {
-      setInputMessage(""); // Message will show via realtime
+      setInputMessage("");
     } else {
       console.error("Failed to send message:", error.message);
     }
@@ -74,21 +76,23 @@ const GroupChatPage = () => {
     fetchGroupTitle();
 
     const channel = supabase
-      .channel(`realtime:chat_messages:group_id=eq.${groupId}`)
+      .channel("chat-room")
       .on(
         "postgres_changes",
         {
           event: "INSERT",
           schema: "public",
           table: "chat_messages",
-          filter: `group_id=eq.${groupId}`,
         },
         (payload) => {
           const newMsg = payload.new as Message;
-          setMessages((prev) => {
-            const exists = prev.some((msg) => msg.id === newMsg.id);
-            return exists ? prev : [...prev, newMsg];
-          });
+          if (newMsg.group_id === groupId) {
+            setMessages((prev) => [...prev, newMsg]);
+
+            // Optional: play sound or add animation
+            const audio = new Audio("/sounds/new-message.mp3");
+            audio.play().catch(() => {});
+          }
         }
       )
       .subscribe();
@@ -100,27 +104,43 @@ const GroupChatPage = () => {
 
   useEffect(scrollToBottom, [messages]);
 
-  return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <Card>
+  const formatTimestamp = (dateStr: string) => {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+
+    const time = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    return isToday ? `Today at ${time}` : `${date.toLocaleDateString()} at ${time}`;
+  };
+
+	return (
+	<div className="h-screen flex flex-col max-w-4xl mx-auto px-4 py-4 pb-24">
+		<Card className="flex flex-col flex-1 min-h-0">
         <CardHeader>
-          <h1 className="text-2xl font-bold text-malaysia-dark">{groupTitle}</h1>
+          <div className="flex items-center justify-between">
+            <Button variant="outline" onClick={() => navigate("/community-chat")}>
+              ← Back
+            </Button>
+            <h1 className="text-2xl font-bold text-malaysia-dark text-center flex-1">
+              {groupTitle}
+            </h1>
+            <div className="w-[75px]" /> {/* Spacer for alignment */}
+          </div>
         </CardHeader>
-        <CardContent>
-          <div className="h-[400px] overflow-y-auto mb-4 space-y-3">
+			<CardContent className="flex flex-col flex-1 min-h-0">
+			<div className="flex-1 overflow-y-auto mb-4 space-y-3 px-1">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`p-3 rounded-lg ${
+                className={`p-3 rounded-lg shadow ${
                   msg.sender_id === user?.id
-                    ? "bg-malaysia-red text-white text-right ml-auto max-w-xs"
-                    : "bg-gray-200 text-gray-900 mr-auto max-w-xs"
+                    ? "bg-gray-200 text-gray-900 text-right ml-auto max-w-xs"
+                    : "bg-gray-100 text-gray-900 mr-auto max-w-xs"
                 }`}
               >
                 <p className="text-sm">{msg.content}</p>
                 <p className="text-xs mt-1 text-gray-500">
-                  {msg.sender_email} •{" "}
-                  {new Date(msg.created_at).toLocaleTimeString()}
+                  {msg.sender_email} • {formatTimestamp(msg.created_at)}
                 </p>
               </div>
             ))}

@@ -35,7 +35,7 @@ const menuItems: MenuItem[] = [
     label: "Community",
     items: [
       { name: "Community Chat & Discussion", href: "/community-chat" },
-      "Submit News or Tips",
+      "Contribute - Submit News or Tips",
       "Suggest a Business or Event",
     ],
   },
@@ -43,7 +43,6 @@ const menuItems: MenuItem[] = [
     icon: "📢",
     label: "Advertise With Us",
     items: [
-      "Featured Businesses",
       "Promote Your Business",
       { name: "Classifieds", href: "/classifieds" },
     ],

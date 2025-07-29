@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabaseClient";
 import { Input } from "@/components/ui/input";
@@ -22,15 +22,14 @@ const GroupChatPage = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [groupTitle, setGroupTitle] = useState("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   const isPaidUser = session?.user?.user_metadata?.is_paid;
 
-  // Scroll to bottom when messages update
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Fetch messages
   const fetchMessages = async () => {
     const { data, error } = await supabase
       .from("chat_messages")
@@ -43,7 +42,6 @@ const GroupChatPage = () => {
     }
   };
 
-  // Fetch group title
   const fetchGroupTitle = async () => {
     const { data, error } = await supabase
       .from("chat_groups")
@@ -56,7 +54,6 @@ const GroupChatPage = () => {
     }
   };
 
-  // Send a message
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
 
@@ -69,13 +66,11 @@ const GroupChatPage = () => {
 
     if (!error) {
       setInputMessage("");
-      // Let the realtime subscription handle the UI update
     } else {
       console.error("Failed to send message:", error.message);
     }
   };
 
-  // Listen to realtime updates
   useEffect(() => {
     fetchMessages();
     fetchGroupTitle();
@@ -84,7 +79,12 @@ const GroupChatPage = () => {
       .channel("chat-room")
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "chat_messages", filter: `group_id=eq.${groupId}` },
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "chat_messages",
+          filter: `group_id=eq.${groupId}`,
+        },
         (payload) => {
           setMessages((prev) => [...prev, payload.new as Message]);
         }
@@ -102,19 +102,27 @@ const GroupChatPage = () => {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Card>
         <CardHeader>
-          <h1 className="text-2xl font-bold text-malaysia-dark">{groupTitle}</h1>
+          <div className="flex items-center justify-between">
+            <Button variant="outline" onClick={() => navigate("/community-chat")}>
+              ← Back
+            </Button>
+            <h1 className="text-2xl font-bold text-malaysia-dark text-center flex-1">
+              {groupTitle}
+            </h1>
+            <div className="w-[75px]" /> {/* Spacer for alignment */}
+          </div>
         </CardHeader>
         <CardContent>
           <div className="h-[400px] overflow-y-auto mb-4 space-y-3">
             {messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`p-3 rounded-lg ${
-                  msg.sender_id === user?.id
-                    ? "bg-malaysia-red text-white text-right ml-auto max-w-xs"
-                    : "bg-gray-200 text-gray-900 mr-auto max-w-xs"
-                }`}
-              >
+			<div
+			key={msg.id}
+			className={`p-3 rounded-lg ${
+				msg.sender_id === user?.id
+				? "bg-gray-200 text-gray-900 text-right ml-auto max-w-xs"
+				: "bg-gray-100 text-gray-900 mr-auto max-w-xs"
+			}`}
+			>
                 <p className="text-sm">{msg.content}</p>
                 <p className="text-xs mt-1 text-gray-500">
                   {msg.sender_email} •{" "}

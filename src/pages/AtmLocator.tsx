@@ -35,6 +35,9 @@ const AtmLocator = () => {
       <h1 className="text-3xl font-bold text-center mb-8">
         ATM Locator – Setia Alam
       </h1>
+	  <h5 className="text-center text-sm text-gray-600 mb-4">
+		Click on any of the banks below to reveal all available locations.
+	  </h5>
 
       <div className="space-y-4">
         {banks.map((bank) => (

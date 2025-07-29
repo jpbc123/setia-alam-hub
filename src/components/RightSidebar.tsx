@@ -43,7 +43,7 @@ export default function RightSidebar() {
         <CardHeader className="pb-3">
           <CardTitle className="text-lg text-malaysia-dark flex items-center gap-2">
             {weather?.iconUrl && (
-              <img src={weather.iconUrl} alt="Weather Icon" className="w-6 h-6" />
+              <img src={weather.iconUrl} alt="Weather Icon" className="w-9 h-9" />
             )}
             Setia Alam Weather
           </CardTitle>

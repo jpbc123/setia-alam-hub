@@ -1,11 +1,7 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/setia-alam-hero.jpg";
 
-interface HeroSectionProps {
-  onExploreClick?: () => void;
-}
-
-const HeroSection = ({ onExploreClick }: HeroSectionProps) => {
+const HeroSection = () => {
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -33,7 +29,6 @@ const HeroSection = ({ onExploreClick }: HeroSectionProps) => {
           <Button 
             size="lg" 
             className="bg-gradient-hero hover:opacity-90 text-lg px-8 py-3 shadow-strong"
-            onClick={onExploreClick}
           >
             Explore Now
           </Button>
