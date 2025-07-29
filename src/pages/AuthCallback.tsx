@@ -1,15 +1,19 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/lib/supabaseClient"; // adjust path if needed
+import { supabase } from "@/lib/supabaseClient";
 
 const AuthCallback = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleCallback = async () => {
-      // Supabase handles session automatically, we just wait a bit
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      navigate("/", { replace: true }); // Redirect after session is set
+      const { error } = await supabase.auth.getSessionFromUrl(); n
+
+      if (error) {
+        console.error("Supabase callback error:", error.message);
+      }
+
+      navigate("/", { replace: true });
     };
 
     handleCallback();

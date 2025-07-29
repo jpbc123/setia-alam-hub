@@ -6,6 +6,6 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     // Always use current origin (works for local dev and production)
-    redirectTo: `${window.location.origin}/`,
+    redirectTo: `${window.location.origin}/auth-callback`,
   },
 });
