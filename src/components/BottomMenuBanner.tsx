@@ -83,18 +83,18 @@ const BottomMenuBanner = () => {
             return (
               <div
                 key={index}
-                className="relative flex-1"
+                className="relative flex-1 text-center"
                 onMouseEnter={() => setActiveMenuIndex(index)}
                 onMouseLeave={() => setActiveMenuIndex(null)}
               >
                 {menu.href ? (
                   <Link
                     to={menu.href}
-                    className="flex flex-col items-center w-full h-full text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2"
+                    className="flex flex-col items-center justify-center text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2"
                   >
                     <span className="text-2xl mb-1">{menu.icon}</span>
                     <span
-                      className={`text-xs text-center transition-all duration-300 ${
+                      className={`text-xs transition-all duration-300 ${
                         isScrolled ? "menu-label-hidden" : "menu-label-visible"
                       }`}
                     >
@@ -103,10 +103,10 @@ const BottomMenuBanner = () => {
                   </Link>
                 ) : (
                   <>
-                    <div className="flex flex-col items-center w-full h-full text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2 cursor-pointer">
+                    <div className="flex flex-col items-center justify-center text-malaysia-light hover:text-malaysia-yellow hover:bg-malaysia-dark/50 p-2 cursor-pointer">
                       <span className="text-2xl mb-1">{menu.icon}</span>
                       <span
-                        className={`text-xs text-center transition-all duration-300 ${
+                        className={`text-xs transition-all duration-300 ${
                           isScrolled ? "menu-label-hidden" : "menu-label-visible"
                         }`}
                       >
@@ -115,44 +115,47 @@ const BottomMenuBanner = () => {
                     </div>
                     {menu.items.length > 0 && isActive && (
                       <div
-                        className={`absolute bottom-full -mb-1 z-50 min-w-[260px] flex flex-col bg-white border border-gray-200 shadow-lg rounded-md text-left
-                          ${
-                            isLastTwo
-                              ? "left-auto right-0 w-full sm:left-1/2 sm:-translate-x-1/2 sm:w-max"
-                              : "left-0 right-0 sm:left-1/2 sm:-translate-x-1/2 sm:w-max"
-                          }`}
+                        className={`absolute bottom-full z-50 min-w-[260px] flex flex-col bg-white border border-gray-200 shadow-lg rounded-md text-left mb-3 ${
+                          isLastTwo
+                            ? "left-auto right-0 sm:left-1/2 sm:-translate-x-1/2 sm:w-max"
+                            : "left-0 right-0 sm:left-1/2 sm:-translate-x-1/2 sm:w-max"
+                        }`}
                       >
-                        {(menu.items as (string | { name: string; href?: string })[]).map(
-                          (item, itemIndex) => {
-                            if (typeof item === "string") {
-                              return (
-                                <div
-                                  key={itemIndex}
-                                  className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap truncate transition"
-                                >
-                                  {item}
-                                </div>
-                              );
-                            } else {
-                              return item.href ? (
-                                <Link
-                                  key={itemIndex}
-                                  to={item.href}
-                                  className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap truncate transition"
-                                >
-                                  {item.name}
-                                </Link>
-                              ) : (
-                                <div
-                                  key={itemIndex}
-                                  className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap truncate transition"
-                                >
-                                  {item.name}
-                                </div>
-                              );
+                        {/* Bubble tail */}
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45 border-l border-t border-gray-200 z-0" />
+                        <div className="z-10 relative">
+                          {(menu.items as (string | { name: string; href?: string })[]).map(
+                            (item, itemIndex) => {
+                              if (typeof item === "string") {
+                                return (
+                                  <div
+                                    key={itemIndex}
+                                    className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap transition truncate"
+                                  >
+                                    {item}
+                                  </div>
+                                );
+                              } else {
+                                return item.href ? (
+                                  <Link
+                                    key={itemIndex}
+                                    to={item.href}
+                                    className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap transition truncate block"
+                                  >
+                                    {item.name}
+                                  </Link>
+                                ) : (
+                                  <div
+                                    key={itemIndex}
+                                    className="px-4 py-2 text-sm text-gray-700 hover:bg-yellow-300 cursor-pointer whitespace-nowrap transition truncate"
+                                  >
+                                    {item.name}
+                                  </div>
+                                );
+                              }
                             }
-                          }
-                        )}
+                          )}
+                        </div>
                       </div>
                     )}
                   </>

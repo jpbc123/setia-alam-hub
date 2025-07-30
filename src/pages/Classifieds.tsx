@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import ClassifiedCard from "@/components/classifieds/ClassifiedCard";
 import ClassifiedForm from "@/components/classifieds/ClassifiedForm";
-import { useAuth } from "@/contexts/AuthContext"; // ✅ Corrected import
+import { useAuth } from "@/contexts/AuthContext";
 
 const categories = ["All", "Sports & Fitness", "Home & Living", "Services", "Buy & Sell", "Others"];
 
@@ -18,24 +18,26 @@ interface Listing {
 }
 
 export default function Classifieds() {
-  const { user } = useAuth(); // ✅ Use current session user
+  const { user } = useAuth();
   const [listings, setListings] = useState<Listing[]>([]);
   const [filteredCategory, setFilteredCategory] = useState("All");
   const [showForm, setShowForm] = useState(false);
 
+  useEffect(() => {
+    // Ensure page scrolls to top when navigating
+    window.scrollTo(0, 0);
+    fetchListings();
+  }, []);
+
   const fetchListings = async () => {
     try {
-      const res = await fetch("/api/classifieds"); // 🔄 Replace with Supabase fetch if needed
+      const res = await fetch("/api/classifieds"); // Replace with Supabase later
       const data = await res.json();
       setListings(data);
     } catch (error) {
       console.error("Failed to fetch listings:", error);
     }
   };
-
-  useEffect(() => {
-    fetchListings();
-  }, []);
 
   const filteredListings =
     filteredCategory === "All"
