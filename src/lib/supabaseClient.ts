@@ -5,8 +5,8 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 const redirectTo =
   import.meta.env.MODE === "development"
-    ? "http://localhost:8080/"
-    : "https://jpbc123.github.io/setia-alam-hub/";
+    ? "http://localhost:8080/auth/callback"
+    : "https://jpbc123.github.io/setia-alam-hub/auth/callback";
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {

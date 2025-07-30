@@ -31,7 +31,7 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    icon: "💬",
+    icon: "👪",
     label: "Community",
     items: [
       { name: "Community Chat & Discussion", href: "/community-chat" },
@@ -40,7 +40,7 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    icon: "📢",
+    icon: "📈",
     label: "Advertise With Us",
     items: [
       "Promote Your Business",
@@ -48,10 +48,12 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    icon: "🛈",
+    icon: "📖",
     label: "About",
-    href: "/about",
-    items: [],
+    items: [
+      { name: "About", href: "/about" },
+      { name: "Privacy Policy", href: "/privacy" },
+    ],
   },
 ];
 

@@ -10,7 +10,6 @@ import AuthCallback from "@/pages/AuthCallback";
 import Layout from "@/components/Layout";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import AtmLocator from "./pages/AtmLocator";
 import Classifieds from "./pages/Classifieds";
@@ -32,7 +31,6 @@ const App = () => (
             <Route path="/" element={<Layout><Index /></Layout>} />
             <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/about" element={<Layout><About /></Layout>} />
-			<Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
             <Route path="/classifieds" element={<Layout><Classifieds /></Layout>} />
             <Route path="/atm-locator" element={<Layout><AtmLocator /></Layout>} />
             <Route path="/community-chat" element={<Layout><CommunityChat /></Layout>} />
