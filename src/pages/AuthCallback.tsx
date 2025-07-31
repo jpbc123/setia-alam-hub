@@ -6,41 +6,23 @@ const AuthCallback = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleOAuthCallback = async () => {
-      try {
-        const rawHash = window.location.hash;
+    // Supabase automatically parses the OAuth hash and stores the session
+    const checkSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
 
-        // Extract params from the raw hash string
-        const params = new URLSearchParams(rawHash.split("#")[2] || rawHash.split("#")[1]);
+      if (error) {
+        console.error("Session retrieval failed:", error.message);
+      }
 
-        const access_token = params.get("access_token");
-        const refresh_token = params.get("refresh_token");
-
-        if (!access_token || !refresh_token) {
-          console.error("Missing tokens in callback URL.");
-          return;
-        }
-
-        // Manually exchange the tokens for a Supabase session
-        const { data, error } = await supabase.auth.setSession({
-          access_token,
-          refresh_token,
-        });
-
-        if (error) {
-          console.error("Error setting session:", error.message);
-          return;
-        }
-
-        console.log("✅ Supabase session restored:", data.session);
+      if (data.session) {
+        console.log("✅ Session restored after OAuth:", data.session);
         navigate("/", { replace: true });
-
-      } catch (err) {
-        console.error("OAuth callback error:", err);
+      } else {
+        console.warn("No session found after OAuth.");
       }
     };
 
-    handleOAuthCallback();
+    checkSession();
   }, [navigate]);
 
   return (
