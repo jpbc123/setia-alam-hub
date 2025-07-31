@@ -1,30 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabaseClient";
 
 const AuthCallback = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const handleCallback = async () => {
-      const { error } = await supabase.auth.getSessionFromUrl();
+    const handleOAuthCallback = async () => {
+      try {
+        const rawHash = window.location.hash;
 
-      if (error) {
-        console.error("Supabase callback error:", error.message);
-      }
+        // Extract params from the raw hash string
+        const params = new URLSearchParams(rawHash.split("#")[2] || rawHash.split("#")[1]);
 
-      // Give time for Supabase to update session context
-      setTimeout(() => {
+        const access_token = params.get("access_token");
+        const refresh_token = params.get("refresh_token");
+
+        if (!access_token || !refresh_token) {
+          console.error("Missing tokens in callback URL.");
+          return;
+        }
+
+        // Manually exchange the tokens for a Supabase session
+        const { data, error } = await supabase.auth.setSession({
+          access_token,
+          refresh_token,
+        });
+
+        if (error) {
+          console.error("Error setting session:", error.message);
+          return;
+        }
+
+        console.log("✅ Supabase session restored:", data.session);
         navigate("/", { replace: true });
-      }, 300); // Small delay helps prevent flicker
+
+      } catch (err) {
+        console.error("OAuth callback error:", err);
+      }
     };
 
-    handleCallback();
+    handleOAuthCallback();
   }, [navigate]);
 
   return (
-    <div className="flex items-center justify-center h-screen text-xl text-center text-malaysia-yellow">
+    <div className="flex items-center justify-center h-screen text-xl text-malaysia-yellow">
       Logging you in...
     </div>
   );
