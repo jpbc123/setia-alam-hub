@@ -73,14 +73,9 @@ export const AuthModal = ({
   };
 
   const handleGoogleLogin = async () => {
-    const redirectTo = `${window.location.origin}/#/auth/callback`; // for HashRouter
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: {
-        redirectTo,
-      },
     });
-
     if (error) {
       setErrorMsg(error.message);
     }
