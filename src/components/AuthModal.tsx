@@ -13,7 +13,7 @@ import {
   Card,
   CardContent,
 } from "@/components/ui/card";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 import { FcGoogle } from "react-icons/fc";
 
 interface AuthModalProps {
@@ -73,11 +73,10 @@ export const AuthModal = ({
   };
 
   const handleGoogleLogin = async () => {
-    const redirectTo = `${window.location.origin}/#/auth/callback`; // for HashRouter
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo,
+        redirectTo: `${window.location.origin}/#/auth/callback`,
       },
     });
 

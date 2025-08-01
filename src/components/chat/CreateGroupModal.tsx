@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 
 const CreateGroupModal = ({ userId, userEmail, onGroupCreated }: any) => {
   const [title, setTitle] = useState("");
