@@ -7,13 +7,13 @@ const SupabaseAuthRedirectHandler = () => {
 
   useEffect(() => {
     const handleRedirect = async () => {
-      const { error } = await supabase.auth.getSessionFromUrl();
+      const { data, error } = await supabase.auth.getSession();
       if (error) console.error("Error handling Supabase redirect:", error);
       navigate("/", { replace: true }); 
     };
 
     handleRedirect();
-  }, []);
+  }, [navigate]);
 
   return <p className="p-4 text-center">Signing you in...</p>;
 };

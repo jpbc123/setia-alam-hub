@@ -22,15 +22,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const { loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl text-malaysia-yellow">
-        Loading session...
-      </div>
-    );
-  }
 
   return (
     <Routes>

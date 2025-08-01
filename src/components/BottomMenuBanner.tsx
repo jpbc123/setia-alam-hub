@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 interface MenuItem {
   icon: string;
   label: string;
-  items: string[] | { name: string; href?: string }[];
+  items: (string | { name: string; href: string })[];
   href?: string;
 }
 
@@ -124,7 +124,7 @@ const BottomMenuBanner = () => {
                               : "left-0 right-0 sm:left-1/2 sm:-translate-x-1/2 sm:w-max"
                           }`}
                       >
-                        {(menu.items as (string | { name: string; href?: string })[]).map(
+                        {menu.items.map(
                           (item, itemIndex) => {
                             if (typeof item === "string") {
                               return (

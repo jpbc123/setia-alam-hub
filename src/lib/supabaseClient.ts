@@ -16,8 +16,8 @@ const redirectTo = `${baseAppUrl}/#/auth/callback`;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    redirectTo: redirectTo,
-    // Make sure you have these options for PKCE flow which is recommended
-    // flowType: 'pkce', // This is often the default or recommended for client-side
+    storage: localStorage,
+    persistSession: true,
+    autoRefreshToken: true,
   },
 });

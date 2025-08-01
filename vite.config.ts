@@ -6,7 +6,7 @@ import path from "path";
 const componentTagger = () => {
   return {
     name: 'component-tagger',
-    transform(code, id) {
+    transform(code: string, id: string) {
       return null;
     },
   };

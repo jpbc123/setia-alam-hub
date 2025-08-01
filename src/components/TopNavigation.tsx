@@ -7,7 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const TopNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [authModal, setAuthModal] = useState<"login" | "register" | null>(null);
+  const [authModal, setAuthModal] = useState<"signin" | "signup" | null>(null);
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const TopNavigation = () => {
                       <Button
                         variant="outline"
                         onClick={() => {
-                          setAuthModal("register");
+                          setAuthModal("signup");
                           setIsMenuOpen(false);
                         }}
                         className="w-full border-malaysia-yellow text-malaysia-yellow hover:bg-malaysia-yellow hover:text-malaysia-dark"
@@ -90,7 +90,7 @@ const TopNavigation = () => {
                       <Button
                         className="w-full bg-malaysia-red hover:bg-malaysia-orange text-white"
                         onClick={() => {
-                          setAuthModal("login");
+                          setAuthModal("signin");
                           setIsMenuOpen(false);
                         }}
                       >
